@@ -3,6 +3,13 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <QString>
+#include <QXmlStreamReader>
+#include <QFile>
+#include <QDebug>
+#include <QList>
+#include <QMap>
 #include "node.h"
 #include "graph.h"
 
@@ -15,6 +22,11 @@ public:
     double distance(node* start, node* end);
 private:
     std::map<std::string, node*> _locations;
+
+    QList read_airports();
+    QList read_routes();
+    QMap<QString, QString> parseAirport(QXmlStreamReader& reader);
+
 };
 
 #endif // OPERATIONS_H
