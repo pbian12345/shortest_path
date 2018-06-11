@@ -1,5 +1,7 @@
 #include "operations.h"
 #include <cmath>
+#include <QtXml>
+#include <QList>
 
 Operations::Operations(){
     //need to populate _locations based on _graph

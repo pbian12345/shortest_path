@@ -3,6 +3,9 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
+QT += xml
+QT += core
+
 SOURCES += main.cpp \
     graph.cpp \
     operations.cpp \
@@ -12,4 +15,3 @@ HEADERS += \
     node.h \
     graph.h \
     operations.h
-
