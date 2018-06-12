@@ -17,16 +17,16 @@ class Operations{
 public:
     Operations();
 
+    void build_locations();
     node* dijkstra(std::vector<node> graph, node* start, node* target);
     node* find(std::string name);
     double distance(node* start, node* end);
+
+    QList<QMap<QString,QString>> read_airports();
+    QList<QMap<QString,QString>> read_routes();
+    QMap<QString, QString> parseAirport(QXmlStreamReader& reader);
 private:
     std::map<std::string, node*> _locations;
-
-    QList read_airports();
-    QList read_routes();
-    QMap<QString, QString> parseAirport(QXmlStreamReader& reader);
-
 };
 
 #endif // OPERATIONS_H

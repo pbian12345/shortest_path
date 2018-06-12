@@ -1,9 +1,13 @@
 #include "operations.h"
+#include <iostream>
 #include <cmath>
 #include <QtXml>
 #include <QList>
 
 Operations::Operations(){
+}
+
+void Operations::build_locations(){
     //need to populate _locations based on _graph
 }
 
@@ -11,6 +15,9 @@ node* Operations::dijkstra(std::vector<node> graph, node *start, node *target){
 }
 
 node* Operations::find(std::string name){
+    if(_locations.find(name) != _locations.end()){
+        return _locations.at(name);
+    }
 }
 
 double Operations::distance(node *start, node *end){
@@ -45,7 +52,7 @@ QMap<QString, QString> Operations::parseAirport(QXmlStreamReader &reader){
     return airport;
 }
 
-QList Operations::read_airports(){
+QList<QMap<QString,QString>> Operations::read_airports(){
     QFile in("airports.xml");
     if(!in.open(QFile::ReadOnly | QFile::Text))
     {
@@ -63,7 +70,7 @@ QList Operations::read_airports(){
 
     while(!reader.atEnd())
     {
-        cout<<"loop: "<<i++<<endl;
+        std::cout<<"loop: "<<i++<<std::endl;
         reader.readNextStartElement();
         qDebug()<<reader.name().toString();
         if(reader.tokenType() == QXmlStreamReader::StartDocument)
@@ -81,7 +88,7 @@ QList Operations::read_airports(){
     return airport;
 }
 
-QList Operations::read_routes(){
+QList<QMap<QString,QString>> Operations::read_routes(){
     QFile in("routes.xml");
     if(!in.open(QFile::ReadOnly | QFile::Text))
     {
@@ -99,7 +106,7 @@ QList Operations::read_routes(){
 
     while(!reader.atEnd())
     {
-        cout<<"loop: "<<i++<<endl;
+        std::cout<<"loop: "<<i++<<std::endl;
         reader.readNextStartElement();
         qDebug()<<reader.name().toString();
         if(reader.tokenType() == QXmlStreamReader::StartDocument)
@@ -114,5 +121,5 @@ QList Operations::read_routes(){
                 qDebug()<<it2.key()<<" "<<it2.value()<<" "<<routes.size();
 
     }
-    return airport;
+    return routes;
 }

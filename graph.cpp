@@ -2,8 +2,8 @@
 
 Graph::Graph(){
     //must populate graph with contents of airport xml
-
-
+//    Operations temp;
+//    QList<QMap<QString, QString>> all_airports = temp.read_airports();
 
     //temp hardcode for Luz's testing:
     node A(-6.081689, 145.391881, "Goroka");
