@@ -7,18 +7,10 @@
 Operations::Operations(){
 }
 
-void Operations::build_locations(){
-    //need to populate _locations based on _graph
-}
 
 node* Operations::dijkstra(std::vector<node> graph, node *start, node *target){
 }
 
-node* Operations::find(std::string name){
-    if(_locations.find(name) != _locations.end()){
-        return _locations.at(name);
-    }
-}
 
 double Operations::distance(node *start, node *end){
     double radius = 3959, distance = 0;
@@ -75,7 +67,7 @@ QList <QMap <QString,QString> > Operations::read_airports(){
     {
         std::cout<<"loop: "<<i++<<std::endl;
         reader.readNextStartElement();
-        qDebug()<<reader.name().toString();
+//        qDebug()<<reader.name().toString();
         if(reader.tokenType() == QXmlStreamReader::StartDocument)
         {
             qDebug()<<"Just read a Start Document Token";
@@ -123,7 +115,7 @@ QList <QMap <QString,QString> > Operations::read_routes(){
     {
         std::cout<<"loop: "<<i++<<std::endl;
         reader.readNextStartElement();
-        qDebug()<<reader.name().toString();
+//        qDebug()<<reader.name().toString();
         if(reader.tokenType() == QXmlStreamReader::StartDocument)
         {
             qDebug()<<"Just read a Start Document Token";

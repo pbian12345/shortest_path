@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
     Operations blarg;
-    QList<QMap<QString,QString>> output = blarg.read_airports();
+    QList <QMap <QString,QString> > output = blarg.read_airports();
     return 0;
 }
 

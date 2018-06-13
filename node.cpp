@@ -7,6 +7,6 @@ node::node(double lat_input, double long_input, std::string name_input){
 }
 
 bool node::add_neigh(node* input){
-    //populate neighbors vector with route xml info
+    //neighbor of node is arrow pointing to neighbor
     neighbors.push_back(input);
 }
