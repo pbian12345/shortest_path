@@ -22,9 +22,9 @@ public:
     node* find(std::string name);
     double distance(node* start, node* end);
 
-    QList<QMap<QString,QString>> read_airports();
-    QList<QMap<QString,QString>> read_routes();
-    QMap<QString, QString> parseAirport(QXmlStreamReader& reader);
+    QList <QMap <QString,QString> > read_airports();
+    QList <QMap <QString,QString> > read_routes();
+    QMap<QString, QString> parseXML(QXmlStreamReader& reader);
 private:
     std::map<std::string, node*> _locations;
 };

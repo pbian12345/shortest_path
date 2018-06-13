@@ -30,8 +30,8 @@ double Operations::distance(node *start, node *end){
     return distance;
 }
 
-QMap<QString, QString> Operations::parseAirport(QXmlStreamReader &reader){
-    QMap<QString, QString> airport;
+QMap<QString, QString> Operations::parseXML(QXmlStreamReader &reader){
+    QMap<QString, QString> xml_thang;
 
     /*
      * We're going to loop over the things because the order might change.
@@ -40,7 +40,7 @@ QMap<QString, QString> Operations::parseAirport(QXmlStreamReader &reader){
     reader.readNext();
     while(reader.tokenType() != QXmlStreamReader::EndElement)
     {
-        airport[reader.name().toString()] = reader.readElementText();
+        xml_thang[reader.name().toString()] = reader.readElementText();
         //qDebug()<<reader.name().toString()<<" = "<<airport[reader.name().toString()];
         reader.readNext();
         if(reader.hasError())
@@ -49,10 +49,13 @@ QMap<QString, QString> Operations::parseAirport(QXmlStreamReader &reader){
             exit(0);
         }
     }
-    return airport;
+    return xml_thang;
 }
 
-QList<QMap<QString,QString>> Operations::read_airports(){
+
+QList <QMap <QString,QString> > Operations::read_airports(){
+    //list should be of form iata, lat, long, iata, lat, long, etc...
+
     QFile in("airports.xml");
     if(!in.open(QFile::ReadOnly | QFile::Text))
     {
@@ -78,17 +81,29 @@ QList<QMap<QString,QString>> Operations::read_airports(){
             qDebug()<<"Just read a Start Document Token";
             continue;
         }
-        if(reader.name() != "airport")
-            continue;
-        airport.append(parseAirport(reader));
-        for(auto  it2(airport.last().begin()); it2!= airport.last().end();++it2 )
-                qDebug()<<it2.key()<<" "<<it2.value()<<" "<<airport.size();
+
+        if(reader.name() != "airport"){
+            if(reader.name() == "iata"){
+                airport.append(parseXML(reader));
+            }
+            else if(reader.name() == "latitude"){
+                airport.append(parseXML(reader));
+            }
+            else if(reader.name() == "longitude"){
+                airport.append(parseXML(reader));
+            }
+        }
+//        airport.append(parseXML(reader));
+//        for(auto it2(airport.last().begin()); it2!= airport.last().end();++it2 )
+//                qDebug()<<it2.key()<<" "<<it2.value()<<" "<<airport.size();
 
     }
     return airport;
 }
 
-QList<QMap<QString,QString>> Operations::read_routes(){
+QList <QMap <QString,QString> > Operations::read_routes(){
+    //list should be of form source, destination, source, destination, etc...
+
     QFile in("routes.xml");
     if(!in.open(QFile::ReadOnly | QFile::Text))
     {
@@ -114,11 +129,18 @@ QList<QMap<QString,QString>> Operations::read_routes(){
             qDebug()<<"Just read a Start Document Token";
             continue;
         }
-        if(reader.name() != "routes")
-            continue;
-        routes.append(parseAirport(reader));
-        for(auto  it2(routes.last().begin()); it2!= routes.last().end();++it2 )
-                qDebug()<<it2.key()<<" "<<it2.value()<<" "<<routes.size();
+
+        if(reader.name() != "airport"){
+            if(reader.name() == "SourceAirport"){
+                routes.append(parseXML(reader));
+            }
+            else if(reader.name() == "DestinationAirport"){
+                routes.append(parseXML(reader));
+            }
+        }
+//        routes.append(parseXML(reader));
+//        for(auto  it2(routes.last().begin()); it2!= routes.last().end();++it2 )
+//                qDebug()<<it2.key()<<" "<<it2.value()<<" "<<routes.size();
 
     }
     return routes;
